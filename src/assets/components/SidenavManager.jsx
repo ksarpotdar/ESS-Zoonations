@@ -39,8 +39,8 @@ export default function SideNav() {
 					<Avatar alt="" src="" className={classes.image} />
 				</Grid>
 				<Grid item>
-					<Typography>Selamat Datang</Typography>
-					<Typography>Nama Karyawan</Typography>
+					<Typography style={{ textAlign: 'center' }}>Selamat Datang</Typography>
+					<Typography style={{ textAlign: 'center' }}>Nama Manajer</Typography>
 				</Grid>
 				<Grid item className={classes.sidenavButtonHolder}>
 					{/* <Link to="/employee-dashboard">
@@ -65,26 +65,30 @@ export default function SideNav() {
 						variant="contained"
 						fullWidth={true}
 					>
-						<Link to="/employee-dashboard" style={{ textDecoration: 'none' }}>
-							<Button
-								style={{
-									background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-									width: '100%'
-								}}
-							>
-								Halaman Utama
-							</Button>
-						</Link>
-						<Link to="/employee-task-management" style={{ textDecoration: 'none' }}>
-							<Button
-								style={{
-									background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-									width: '100%'
-								}}
-							>
-								Manajemen Tugas
-							</Button>
-						</Link>
+						<Button
+							style={{
+								background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+								width: '100%'
+							}}
+						>
+							Halaman Utama
+						</Button>
+						<Button
+							style={{
+								background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+								width: '100%'
+							}}
+						>
+							Data Karyawan
+						</Button>
+						<Button
+							style={{
+								background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+								width: '100%'
+							}}
+						>
+							Manajemen Tugas
+						</Button>
 						<Button
 							style={{
 								background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',

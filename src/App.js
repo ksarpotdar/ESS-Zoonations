@@ -7,6 +7,9 @@ import Homepage from './pages/Homepage';
 import Registration from './pages/Registration';
 import EmployeeDashboard from './pages/EmployeeDashboard';
 import EmployeeTaskManagement from './pages/EmployeeTaskManagement';
+// import ManagerDashboard from './pages/ManagerDashboard';
+// import ManagerEmployeeData from './pages/ManagerEmployeeData';
+import ManagerTaskManagement from './pages/ManagerTaskManagement';
 
 function App() {
 	return (
@@ -17,6 +20,7 @@ function App() {
 					<Route path="/registration" component={Registration} />
 					<Route path="/employee-dashboard" component={EmployeeDashboard} />
 					<Route path="/employee-task-management" component={EmployeeTaskManagement} />
+					<Route path="/manager-task-management" component={ManagerTaskManagement} />
 				</Switch>
 			</Router>
 		</div>

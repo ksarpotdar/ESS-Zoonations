@@ -12,7 +12,7 @@ import Paper from '@material-ui/core/Paper';
 
 //Components
 import DashboardTitle from '../assets/components/DashboardTitle';
-import SideNav from '../assets/components/SideNav';
+import SideNav from '../assets/components/SidenavEmployee';
 import LiveClock from '../assets/components/LiveClock';
 import Notification from '../assets/components/Notification';
 import TaskSummary from '../assets/components/TaskSummary';
