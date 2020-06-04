@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Homepage from './pages/Homepage';
 import Registration from './pages/Registration';
 import EmployeeDashboard from './pages/EmployeeDashboard';
+import EmployeeTaskManagement from './pages/EmployeeTaskManagement';
 
 function App() {
 	return (
@@ -15,6 +16,7 @@ function App() {
 					<Route exact path="/" component={Homepage} />
 					<Route path="/registration" component={Registration} />
 					<Route path="/employee-dashboard" component={EmployeeDashboard} />
+					<Route path="/employee-task-management" component={EmployeeTaskManagement} />
 				</Switch>
 			</Router>
 		</div>

@@ -7,6 +7,9 @@ import { Avatar } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 
+//Other Libraries
+import { Link } from 'react-router-dom';
+
 const useStyles = makeStyles((theme) => ({
 	avatarHolder: {
 		paddingTop: '10%',
@@ -39,12 +42,16 @@ export default function SideNav() {
 					<Typography>Nama Karyawan</Typography>
 				</Grid>
 				<Grid item className={classes.sidenavButtonHolder}>
-					<Button className={classes.sidenavButton}>
-						<Typography>Halaman Utama</Typography>
-					</Button>
-					<Button className={classes.sidenavButton}>
-						<Typography>Data Tugas</Typography>
-					</Button>
+					<Link to="/employee-dashboard">
+						<Button className={classes.sidenavButton}>
+							<Typography>Halaman Utama</Typography>
+						</Button>
+					</Link>
+					<Link to="/employee-task-management">
+						<Button className={classes.sidenavButton}>
+							<Typography>Data Tugas</Typography>
+						</Button>
+					</Link>
 					<Button className={classes.sidenavButton}>
 						<Typography>Pengaturan Profile</Typography>
 					</Button>
