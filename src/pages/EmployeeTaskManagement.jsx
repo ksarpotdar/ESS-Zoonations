@@ -69,7 +69,7 @@ export default function EmployeeTaskManagement() {
 									variant="contained"
 									color="primary"
 									aria-label="contained primary button group"
-									fullWidth="true"
+									fullWidth={true}
 								>
 									<Button>Tugas Baru</Button>
 									<Button>Sedang Dikerjakan</Button>

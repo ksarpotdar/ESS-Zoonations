@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import { Avatar } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 
 //Other Libraries
 import { Link } from 'react-router-dom';
@@ -42,7 +43,7 @@ export default function SideNav() {
 					<Typography>Nama Karyawan</Typography>
 				</Grid>
 				<Grid item className={classes.sidenavButtonHolder}>
-					<Link to="/employee-dashboard">
+					{/* <Link to="/employee-dashboard">
 						<Button className={classes.sidenavButton}>
 							<Typography>Halaman Utama</Typography>
 						</Button>
@@ -57,7 +58,50 @@ export default function SideNav() {
 					</Button>
 					<Button className={classes.sidenavButton}>
 						<Typography>Keluar</Typography>
-					</Button>
+					</Button> */}
+					<ButtonGroup
+						orientation="vertical"
+						aria-label="vertical contained primary button group"
+						variant="contained"
+						fullWidth={true}
+					>
+						<Link to="/employee-dashboard" style={{ textDecoration: 'none' }}>
+							<Button
+								style={{
+									background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+									width: '100%'
+								}}
+							>
+								Halaman Utama
+							</Button>
+						</Link>
+						<Link to="/employee-task-management" style={{ textDecoration: 'none' }}>
+							<Button
+								style={{
+									background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+									width: '100%'
+								}}
+							>
+								Manajemen Tugas
+							</Button>
+						</Link>
+						<Button
+							style={{
+								background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+								width: '100%'
+							}}
+						>
+							Pengaturan Profil
+						</Button>
+						<Button
+							style={{
+								background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+								width: '100%'
+							}}
+						>
+							Keluar
+						</Button>
+					</ButtonGroup>
 				</Grid>
 			</Grid>
 		</Fragment>
