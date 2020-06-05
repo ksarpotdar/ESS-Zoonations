@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-export default function TaskSummary() {
+export default function TaskSummary(props) {
 	const classes = useStyles();
 
 	return (
@@ -45,28 +45,28 @@ export default function TaskSummary() {
 					<Grid container item xs={7}>
 						<Grid container item xs={12} className={classes.taskContent}>
 							<Grid container item xs={6} direction="column" alignItems="center">
-								<Typography variant="h4">0</Typography>
+								<Typography variant="h4">{props.done}</Typography>
 								<Typography>Selesai</Typography>
 							</Grid>
 							<Grid container item xs={6} direction="column" alignItems="center">
-								<Typography variant="h4">0</Typography>
+								<Typography variant="h4">{props.onProgress}</Typography>
 								<Typography>Sedang Dikerjakan</Typography>
 							</Grid>
 						</Grid>
 						<Grid container item xs={12} className={classes.taskContent}>
 							<Grid container item xs={6} direction="column" alignItems="center">
-								<Typography variant="h4">0</Typography>
+								<Typography variant="h4">{props.reviewed}</Typography>
 								<Typography>Sedang Direview</Typography>
 							</Grid>
 							<Grid container item xs={6} direction="column" alignItems="center">
-								<Typography variant="h4">0</Typography>
+								<Typography variant="h4">{props.revision}</Typography>
 								<Typography>Perlu Direvisi</Typography>
 							</Grid>
 						</Grid>
 					</Grid>
 					<Divider orientation="vertical" flexItem />
 					<Grid container item xs={4} direction="column" alignItems="center">
-						<Typography className={classes.deadlineTitle}>Deadline Terdekat Untuk Direview</Typography>
+						{/* <Typography className={classes.deadlineTitle}>Deadline Terdekat Untuk Direview</Typography>
 						<Grid container item className={classes.deadlineList} direction="column" alignItems="center">
 							<Typography>Tugas A</Typography>
 							<Typography>6/12/2020 16:00</Typography>
@@ -74,7 +74,7 @@ export default function TaskSummary() {
 						<Grid container item className={classes.deadlineList} direction="column" alignItems="center">
 							<Typography>Tugas B</Typography>
 							<Typography>6/20/2020 16:00</Typography>
-						</Grid>
+						</Grid> */}
 					</Grid>
 				</Grid>
 			</Paper>

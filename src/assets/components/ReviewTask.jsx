@@ -14,7 +14,11 @@ import TableRow from '@material-ui/core/TableRow';
 import { Button } from '@material-ui/core';
 
 //Other Libraries
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
+// Redux Action
+import { updateTaskStatus } from '../redux/action/taskAction';
 
 const useStyles = makeStyles((theme) => ({
 	table: {
@@ -30,14 +34,20 @@ export default function ReviewTask() {
 	const classes = useStyles();
 	const taskData = useSelector((state) => state.taskData);
 	let reviewTask = [];
+	const dispatch = useDispatch();
+	const history = useHistory();
 
-	const changeStatus = (id) => {
-		console.log(id, 'test');
+	const changeStatus = (id, status) => {
+		const data = {
+			status
+		};
+		dispatch(updateTaskStatus(id, data));
+		history.push('/manager-dashboard');
 	};
 
 	if (taskData.length !== 0) {
 		for (let i = 0; i < taskData.length; i++) {
-			if (taskData[i].status === 'review') {
+			if (taskData[i].status === 'Sedang Direview') {
 				reviewTask.push(taskData[i]);
 			}
 		}
@@ -65,7 +75,10 @@ export default function ReviewTask() {
 								Status
 							</TableCell>
 							<TableCell className={classes.header} align="right">
-								Ubah Status
+								Revisi
+							</TableCell>
+							<TableCell className={classes.header} align="right">
+								Selesai
 							</TableCell>
 						</TableRow>
 					</TableHead>
@@ -80,8 +93,13 @@ export default function ReviewTask() {
 									<TableCell align="right">{row.taskDetails}</TableCell>
 									<TableCell align="right">{row.status}</TableCell>
 									<TableCell align="right">
-										<Button size="small" onClick={() => changeStatus(row._id)}>
-											Ubah Status
+										<Button size="small" onClick={() => changeStatus(row._id, 'Butuh Direvisi')}>
+											Revisi
+										</Button>
+									</TableCell>
+									<TableCell align="right">
+										<Button size="small" onClick={() => changeStatus(row._id, 'Selesai')}>
+											Selesai
 										</Button>
 									</TableCell>
 								</TableRow>

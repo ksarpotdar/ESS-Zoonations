@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-export default function Homepage() {
+export default function Notification(props) {
 	const classes = useStyles();
 
 	return (
@@ -34,7 +34,7 @@ export default function Homepage() {
 					<Grid container item className={classes.content}>
 						<Grid container item xs={12}>
 							<Grid item xs={12}>
-								<Typography variant="h4">0</Typography>
+								<Typography variant="h4">{props.newTask}</Typography>
 							</Grid>
 							<Grid item xs={12}>
 								<Typography>Tugas Baru</Typography>

@@ -16,6 +16,9 @@ import LiveClock from '../assets/components/LiveClock';
 import Notification from '../assets/components/Notification';
 import TaskSummary from '../assets/components/TaskSummary';
 
+//Other Libraries
+import { useDispatch, useSelector } from 'react-redux';
+
 const useStyles = makeStyles((theme) => ({
 	root: {
 		height: '100%',
@@ -34,6 +37,32 @@ const useStyles = makeStyles((theme) => ({
 
 export default function EmployeeDashboard() {
 	const classes = useStyles();
+	const allTask = useSelector((state) => state.taskData);
+	const pendingTask = [];
+	const onProgressTask = [];
+	const reviewedTask = [];
+	const revisionTask = [];
+	const doneTask = [];
+
+	if (allTask.length !== 0) {
+		for (let i = 0; i < allTask.length; i++) {
+			if (allTask[i].status === 'Belum Dikerjakan') {
+				pendingTask.push(allTask[i]);
+			}
+			if (allTask[i].status === 'Sedang Dikerjakan') {
+				onProgressTask.push(allTask[i]);
+			}
+			if (allTask[i].status === 'Sedang Direview') {
+				reviewedTask.push(allTask[i]);
+			}
+			if (allTask[i].status === 'Butuh Direvisi') {
+				revisionTask.push(allTask[i]);
+			}
+			if (allTask[i].status === 'Selesai') {
+				doneTask.push(allTask[i]);
+			}
+		}
+	}
 
 	return (
 		<Fragment>
@@ -47,19 +76,17 @@ export default function EmployeeDashboard() {
 						<Grid container item justify="space-around" style={{ height: '50%' }}>
 							<Grid item xs={4}>
 								<LiveClock />
-								<Notification />
+								<Notification newTask={pendingTask.length} />
 							</Grid>
 							<Grid container item xs={7}>
-								<TaskSummary />
+								<TaskSummary
+									done={doneTask.length}
+									onProgress={onProgressTask.length}
+									reviewed={reviewedTask.length}
+									revision={revisionTask.length}
+								/>
 							</Grid>
 						</Grid>
-						{/* <Grid item xs={12} style={{ paddingTop: '2%', paddingBottom: '2%', paddingRight: '1%' }}>
-							<Paper elevation={5} style={{ height: '100%' }}>
-								<Grid item xs={6}>
-									<Typography>a</Typography>
-								</Grid>
-							</Paper>
-						</Grid> */}
 					</Grid>
 				</Grid>
 			</div>

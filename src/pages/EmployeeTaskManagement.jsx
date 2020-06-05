@@ -58,20 +58,11 @@ const useStyles = makeStyles((theme) => ({
 export default function EmployeeTaskManagement() {
 	const classes = useStyles();
 	const allTask = useSelector((state) => state.taskData);
-	const pendingTask = [];
 	const [ page, setPage ] = React.useState('1');
 
 	const changePage = (page) => {
 		setPage(page);
 	};
-
-	if (allTask.length !== 0) {
-		for (let i = 0; i < allTask.length; i++) {
-			if (allTask[i].status === 'Belum Dikerjakan') {
-				pendingTask.push(allTask[i]);
-			}
-		}
-	}
 
 	return (
 		<Fragment>

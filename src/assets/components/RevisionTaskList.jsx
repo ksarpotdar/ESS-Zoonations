@@ -68,7 +68,7 @@ export default function RevisionTaskList() {
 
 	const changeStatus = (id) => {
 		const data = {
-			status: 'Sedang Direview'
+			status: 'Sedang Dikerjakan'
 		};
 		dispatch(updateTaskStatus(id, data));
 		history.push('/employee-dashboard');
@@ -98,7 +98,7 @@ export default function RevisionTaskList() {
 							</CardContent>
 							<CardActions>
 								<Button size="small" color="primary" onClick={() => changeStatus(task._id)}>
-									Siap Direview
+									Kerjakan Sekarang
 								</Button>
 							</CardActions>
 						</Card>
