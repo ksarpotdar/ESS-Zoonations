@@ -98,14 +98,7 @@ export default function SideNav() {
 								Manajemen Tugas
 							</Button>
 						</Link>
-						<Button
-							style={{
-								background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-								width: '100%'
-							}}
-						>
-							Pengaturan Profil
-						</Button>
+
 						<Button
 							style={{
 								background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',

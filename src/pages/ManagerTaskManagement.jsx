@@ -23,6 +23,7 @@ import SidenavManager from '../assets/components/SidenavManager';
 import DashboardTitle from '../assets/components/DashboardTitle';
 import ManagerCreateTask from '../assets/components/ManagerCreateTask';
 import ManagerTaskList from '../assets/components/ManagerTaskList';
+import ReviewTask from '../assets/components/ReviewTask';
 
 //Other Libraries
 
@@ -60,18 +61,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function EmployeeTaskManagement() {
 	const classes = useStyles();
-	function createData(name, calories, fat, carbs, protein) {
-		return { name, calories, fat, carbs, protein };
-	}
 	const [ page, setPage ] = React.useState('1');
-
-	const rows = [
-		createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-		createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-		createData('Eclair', 262, 16.0, 24, 6.0),
-		createData('Cupcake', 305, 3.7, 67, 4.3),
-		createData('Gingerbread', 356, 16.0, 49, 3.9)
-	];
 
 	const changePage = (page) => {
 		setPage(page);
@@ -105,33 +95,13 @@ export default function EmployeeTaskManagement() {
 								{page === '1' ? (
 									<ManagerTaskList />
 								) : page === '2' ? (
-									'page 2'
+									<ReviewTask />
 								) : page === '3' ? (
 									<ManagerCreateTask />
 								) : (
 									''
 								)}
 							</Grid>
-
-							{/* <Grid container item xs={11} justify="flex-start" spacing={1}>
-								<Grid item xs={4}>
-									<Card className={classes.root}>
-										<CardContent>
-											<Typography gutterBottom variant="h5" component="h2">
-												Nama Project
-											</Typography>
-											<Typography variant="body2" color="textSecondary" component="p">
-												Keterangan tugas yang akan dikerjakan
-											</Typography>
-										</CardContent>
-										<CardActions>
-											<Button size="small" color="primary">
-												Kerjakan sekarang
-											</Button>
-										</CardActions>
-									</Card>
-								</Grid>
-							</Grid> */}
 						</Grid>
 					</Grid>
 				</Grid>

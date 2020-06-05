@@ -30,10 +30,15 @@ export default function ManajerTaskList() {
 	const classes = useStyles();
 	const taskData = useSelector((state) => state.taskData);
 
-	console.log(taskData);
+	const changeStatus = (id) => {
+		console.log(id, 'test');
+	};
 
 	return (
 		<Fragment>
+			<Typography variant="h5" style={{ textAlign: 'center', marginBottom: '3%' }}>
+				Ringkasan Tugas
+			</Typography>
 			<TableContainer component={Paper}>
 				<Table className={classes.table} aria-label="simple table">
 					<TableHead>
@@ -51,6 +56,9 @@ export default function ManajerTaskList() {
 							<TableCell className={classes.header} align="right">
 								Status
 							</TableCell>
+							<TableCell className={classes.header} align="right">
+								Hapus Tugas
+							</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -63,6 +71,11 @@ export default function ManajerTaskList() {
 								<TableCell align="right">{row.taskDetails}</TableCell>
 								<TableCell align="right">{row.deadline}</TableCell>
 								<TableCell align="right">{row.status}</TableCell>
+								<TableCell align="right">
+									<Button size="small" onClick={() => changeStatus(row._id)}>
+										Hapus Tugas
+									</Button>
+								</TableCell>
 							</TableRow>
 						))}
 					</TableBody>

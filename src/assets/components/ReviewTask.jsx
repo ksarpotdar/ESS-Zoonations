@@ -26,26 +26,40 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-export default function EmployeeTable() {
+export default function ReviewTask() {
 	const classes = useStyles();
-	const employeeData = useSelector((state) => state.employeeData);
+	const taskData = useSelector((state) => state.taskData);
+	let reviewTask = [];
 
 	const changeStatus = (id) => {
 		console.log(id, 'test');
 	};
 
+	if (taskData.length !== 0) {
+		for (let i = 0; i < taskData.length; i++) {
+			if (taskData[i].status === 'review') {
+				reviewTask.push(taskData[i]);
+			}
+		}
+	}
+
+	console.log(reviewTask);
+
 	return (
 		<Fragment>
-			<TableContainer component={Paper} style={{ marginTop: '5%' }}>
+			<Typography variant="h5" style={{ textAlign: 'center', marginBottom: '3%' }}>
+				Tugas yang harus direview
+			</Typography>
+			<TableContainer component={Paper}>
 				<Table className={classes.table} aria-label="simple table">
 					<TableHead>
 						<TableRow>
 							<TableCell className={classes.header}>Nama Karyawan</TableCell>
 							<TableCell className={classes.header} align="right">
-								Email
+								Nama Project
 							</TableCell>
 							<TableCell className={classes.header} align="right">
-								No Hp
+								Detail Pekerjaan
 							</TableCell>
 							<TableCell className={classes.header} align="right">
 								Status
@@ -56,21 +70,25 @@ export default function EmployeeTable() {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{employeeData.map((row) => (
-							<TableRow key={row._id}>
-								<TableCell component="th" scope="row">
-									{row.fullname}
-								</TableCell>
-								<TableCell align="right">{row.email}</TableCell>
-								<TableCell align="right">{row.hp}</TableCell>
-								<TableCell align="right">{row.status}</TableCell>
-								<TableCell align="right">
-									<Button size="small" onClick={() => changeStatus(row._id)}>
-										Ubah Status
-									</Button>
-								</TableCell>
-							</TableRow>
-						))}
+						{reviewTask.length !== 0 ? (
+							reviewTask.map((row) => (
+								<TableRow key={row._id}>
+									<TableCell component="th" scope="row">
+										{row.userId.fullname}
+									</TableCell>
+									<TableCell align="right">{row.projectName}</TableCell>
+									<TableCell align="right">{row.taskDetails}</TableCell>
+									<TableCell align="right">{row.status}</TableCell>
+									<TableCell align="right">
+										<Button size="small" onClick={() => changeStatus(row._id)}>
+											Ubah Status
+										</Button>
+									</TableCell>
+								</TableRow>
+							))
+						) : (
+							'Belum ada tugas untuk direview'
+						)}
 					</TableBody>
 				</Table>
 			</TableContainer>
