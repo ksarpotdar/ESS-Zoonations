@@ -14,7 +14,11 @@ import TableRow from '@material-ui/core/TableRow';
 import { Button } from '@material-ui/core';
 
 //Other Libraries
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
+// Redux Action
+import { deleteTask } from '../redux/action/taskAction';
 
 const useStyles = makeStyles((theme) => ({
 	table: {
@@ -29,9 +33,12 @@ const useStyles = makeStyles((theme) => ({
 export default function ManajerTaskList() {
 	const classes = useStyles();
 	const taskData = useSelector((state) => state.taskData);
+	const history = useHistory();
+	const dispatch = useDispatch();
 
-	const changeStatus = (id) => {
-		console.log(id, 'test');
+	const deleteThisTask = (id) => {
+		dispatch(deleteTask(id));
+		history.push('/manager-dashboard');
 	};
 
 	return (
@@ -72,7 +79,7 @@ export default function ManajerTaskList() {
 								<TableCell align="right">{row.deadline}</TableCell>
 								<TableCell align="right">{row.status}</TableCell>
 								<TableCell align="right">
-									<Button size="small" onClick={() => changeStatus(row._id)}>
+									<Button size="small" onClick={() => deleteThisTask(row._id)}>
 										Hapus Tugas
 									</Button>
 								</TableCell>
