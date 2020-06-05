@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 
 //Styling - Material UI
 import { makeStyles } from '@material-ui/core/styles';
@@ -8,8 +8,13 @@ import { Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 
-//Other Libraries
-import { Link } from 'react-router-dom';
+// Other Libraries
+import { Link, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+// Redux Action
+import { logout } from '../redux/action/usersAction';
+import { getUserData } from '../redux/action/usersAction';
 
 const useStyles = makeStyles((theme) => ({
 	avatarHolder: {
@@ -31,34 +36,42 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SideNav() {
 	const classes = useStyles();
+	const dispatch = useDispatch();
+	const history = useHistory();
+	const currentUser = useSelector((state) => state.currentUser);
+
+	const handleLogout = async (id) => {
+		await dispatch(logout(id));
+		await localStorage.removeItem('token');
+		await localStorage.removeItem('refToken');
+		await localStorage.removeItem('isLoggedIn');
+		await history.push('/');
+	};
+
+	useEffect(() => {
+		const token = localStorage.getItem('token');
+		if (token) {
+			dispatch(getUserData(token));
+		}
+	}, []);
 
 	return (
 		<Fragment>
 			<Grid container item xs={2} direction="column" justify="flex-start" alignItems="center">
 				<Grid item className={classes.avatarHolder}>
-					<Avatar alt="" src="" className={classes.image} />
+					<Avatar
+						alt={currentUser.length !== 0 ? currentUser.fullname : ''}
+						src={currentUser.length !== 0 ? currentUser.avatar : ''}
+						className={classes.image}
+					/>
 				</Grid>
 				<Grid item>
 					<Typography style={{ textAlign: 'center' }}>Selamat Datang</Typography>
-					<Typography style={{ textAlign: 'center' }}>Nama Manajer</Typography>
+					<Typography style={{ textAlign: 'center' }}>
+						{currentUser.length !== 0 ? currentUser.fullname : 'loading'}
+					</Typography>
 				</Grid>
 				<Grid item className={classes.sidenavButtonHolder}>
-					{/* <Link to="/employee-dashboard">
-						<Button className={classes.sidenavButton}>
-							<Typography>Halaman Utama</Typography>
-						</Button>
-					</Link>
-					<Link to="/employee-task-management">
-						<Button className={classes.sidenavButton}>
-							<Typography>Data Tugas</Typography>
-						</Button>
-					</Link>
-					<Button className={classes.sidenavButton}>
-						<Typography>Pengaturan Profile</Typography>
-					</Button>
-					<Button className={classes.sidenavButton}>
-						<Typography>Keluar</Typography>
-					</Button> */}
 					<ButtonGroup
 						orientation="vertical"
 						aria-label="vertical contained primary button group"
@@ -111,6 +124,7 @@ export default function SideNav() {
 								background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
 								width: '100%'
 							}}
+							onClick={() => handleLogout(currentUser._id)}
 						>
 							Keluar
 						</Button>

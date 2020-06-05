@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-//Styling - Material UI
+// Styling - Material UI
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { Typography } from '@material-ui/core';
@@ -9,10 +9,15 @@ import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
-//Other Libraries
+// Other Libraries
 import { Formik } from 'formik';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
+// Redux Actions
+import { addUser } from '../redux/action/usersAction';
 
 const useStyles = makeStyles((theme) => ({
 	loginForm: {
@@ -38,19 +43,29 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
 	const classes = useStyles();
-	const [ state, setState ] = React.useState({
-		age: '',
-		name: 'hai'
-	});
+	const dispatch = useDispatch();
+	const history = useHistory();
+	const [ prefix, setPrefix ] = React.useState('');
 
 	const handleChangeSelect = (event) => {
-		const name = event.target.name;
-		setState({
-			...state,
-			[name]: event.target.value
-		});
+		setPrefix(event.target.value);
 	};
 
+	const register = (formData) => {
+		if (formData.password !== formData.passwordConfirm)
+			return alert('Masukkan password yang sama pada kolom konfirmasi password');
+
+		const registrationData = {
+			prefix: prefix,
+			fullname: formData.fullname,
+			email: formData.email,
+			hp: formData.hp,
+			password: formData.password
+		};
+
+		dispatch(addUser(registrationData));
+		history.push('/');
+	};
 	return (
 		<Fragment>
 			<Grid container item xs={5}>
@@ -62,9 +77,11 @@ export default function SignUp() {
 				<Grid item xs={12}>
 					<Formik
 						initialValues={{
-							fullName: '',
+							fullname: '',
 							email: '',
-							password: ''
+							hp: '',
+							password: '',
+							passwordConfirm: ''
 						}}
 						// validate={(values) => {
 						// 	const errors = {};
@@ -80,16 +97,18 @@ export default function SignUp() {
 
 						// 	return errors;
 						// }}
-						onSubmit={async (values) => {
+						onSubmit={(values) => {
+							register(values);
+
 							// await dispatch(loginUser(values));
 							// await history.push('/');
 						}}
 					>
-						{({ handleChange, handleSubmit, values, isSubmitting, errors, touched }) => {
+						{({ handleChange, handleSubmit, values, errors, touched }) => {
 							return (
 								<form className={classes.form} noValidate onSubmit={handleSubmit}>
 									<Grid container justify="space-around" spacing={1}>
-										<Grid item xs={12}>
+										{/* <Grid item xs={12}>
 											<TextField
 												variant="outlined"
 												margin="dense"
@@ -102,31 +121,28 @@ export default function SignUp() {
 												values={values.email}
 												size="small"
 											/>
-										</Grid>
+										</Grid> */}
 									</Grid>
 									<Grid container justify="space-around" spacing={1} alignItems="center">
 										<Grid item xs={3}>
 											<FormControl
 												variant="outlined"
+												className={classes.formControl}
 												fullWidth
 												size="small"
-												className={classes.formControl}
 											>
-												<InputLabel htmlFor="outlined-age-native-simple">Prefix</InputLabel>
+												<InputLabel id="demo-simple-select-outlined-label">Prefix</InputLabel>
 												<Select
-													native
-													value={state.age}
+													labelId="demo-simple-select-outlined-label"
+													id="demo-simple-select-outlined"
+													value={prefix}
 													onChange={handleChangeSelect}
 													label="Prefix"
-													inputProps={{
-														name: 'age',
-														id: 'outlined-age-native-simple'
-													}}
 												>
-													<option aria-label="None" value="" />
-													<option value={10}>Mr.</option>
-													<option value={20}>Mrs.</option>
-													<option value={30}>Ms.</option>
+													<MenuItem value="">None</MenuItem>
+													<MenuItem value="Mr.">Mr.</MenuItem>
+													<MenuItem value="Mrs.">Mrs.</MenuItem>
+													<MenuItem value="Ms.">Ms.</MenuItem>
 												</Select>
 											</FormControl>
 										</Grid>
@@ -136,12 +152,12 @@ export default function SignUp() {
 												margin="dense"
 												required
 												fullWidth
-												id="email"
+												id="fullname"
 												label="Nama lengkap"
-												name="email"
-												autoComplete="email"
+												name="fullname"
+												autoComplete="fullname"
 												onChange={handleChange}
-												values={values.email}
+												values={values.fullname}
 												size="small"
 											/>
 										</Grid>
@@ -168,13 +184,12 @@ export default function SignUp() {
 												margin="dense"
 												required
 												fullWidth
-												name="password"
+												name="hp"
 												label="No Hp"
-												type="password"
-												id="password"
-												autoComplete="current-password"
+												id="hp"
+												autoComplete="hp"
 												onChange={handleChange}
-												values={values.password}
+												values={values.hp}
 												size="small"
 											/>
 										</Grid>
@@ -186,12 +201,12 @@ export default function SignUp() {
 												margin="dense"
 												required
 												fullWidth
-												id="email"
+												id="password"
 												label="Password"
-												name="email"
-												autoComplete="email"
+												name="password"
+												type="password"
 												onChange={handleChange}
-												values={values.email}
+												values={values.password}
 												size="small"
 											/>
 										</Grid>
@@ -201,13 +216,12 @@ export default function SignUp() {
 												margin="dense"
 												required
 												fullWidth
-												name="password"
+												name="passwordConfirm"
 												label="Konfirmasi Password"
 												type="password"
-												id="password"
-												autoComplete="current-password"
+												id="passwordConfirm"
 												onChange={handleChange}
-												values={values.password}
+												values={values.passwordConfirm}
 												size="small"
 											/>
 										</Grid>
@@ -218,7 +232,6 @@ export default function SignUp() {
 										fullWidth
 										variant="contained"
 										color="inherit"
-										disabled={isSubmitting}
 										className={classes.button}
 									>
 										<b>Daftar</b>

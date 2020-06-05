@@ -9,7 +9,11 @@ import TextField from '@material-ui/core/TextField';
 
 //Other Libraries
 import { Formik } from 'formik';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
+//Redux Actions
+import { login } from '../redux/action/usersAction';
 
 const useStyles = makeStyles((theme) => ({
 	loginForm: {
@@ -32,6 +36,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
 	const classes = useStyles();
+	const dispatch = useDispatch();
+	const history = useHistory();
 
 	return (
 		<Fragment>
@@ -61,12 +67,12 @@ export default function SignIn() {
 
 							return errors;
 						}}
-						onSubmit={async (values) => {
-							// await dispatch(loginUser(values));
-							// await history.push('/');
+						onSubmit={(values) => {
+							// console.log(values);
+							dispatch(login(values, history));
 						}}
 					>
-						{({ handleChange, handleSubmit, values, isSubmitting, errors, touched }) => {
+						{({ handleChange, handleSubmit, values, errors, touched }) => {
 							return (
 								<form className={classes.form} noValidate onSubmit={handleSubmit}>
 									<TextField
@@ -101,7 +107,6 @@ export default function SignIn() {
 										fullWidth
 										variant="contained"
 										color="inherit"
-										disabled={isSubmitting}
 										className={classes.button}
 									>
 										<b>Masuk</b>

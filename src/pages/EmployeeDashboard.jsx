@@ -1,16 +1,15 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 
-//Styling - Material UI
+// Styling - Material UI
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import { Avatar } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-
 import Paper from '@material-ui/core/Paper';
 
-//Components
+// Components
 import DashboardTitle from '../assets/components/DashboardTitle';
 import SideNav from '../assets/components/SidenavEmployee';
 import LiveClock from '../assets/components/LiveClock';
