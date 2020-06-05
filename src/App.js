@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import PrivateRoute from './assets/helper/PrivateRoute';
 
 //Pages
 import Homepage from './pages/Homepage';
@@ -18,11 +19,11 @@ function App() {
 				<Switch>
 					<Route exact path="/" component={Homepage} />
 					<Route path="/registration" component={Registration} />
-					<Route path="/employee-dashboard" component={EmployeeDashboard} />
-					<Route path="/employee-task-management" component={EmployeeTaskManagement} />
-					<Route path="/manager-dashboard" component={ManagerDashboard} />
-					<Route path="/manager-employee-data" component={ManagerEmployeeData} />
-					<Route path="/manager-task-management" component={ManagerTaskManagement} />
+					<PrivateRoute path="/employee-dashboard" component={EmployeeDashboard} />
+					<PrivateRoute path="/employee-task-management" component={EmployeeTaskManagement} />
+					<PrivateRoute path="/manager-dashboard" component={ManagerDashboard} />
+					<PrivateRoute path="/manager-employee-data" component={ManagerEmployeeData} />
+					<PrivateRoute path="/manager-task-management" component={ManagerTaskManagement} />
 				</Switch>
 			</Router>
 		</div>

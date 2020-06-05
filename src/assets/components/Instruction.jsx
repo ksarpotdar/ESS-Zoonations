@@ -30,8 +30,7 @@ export default function Instruction() {
 						Petunjuk Pendaftaran
 					</Typography>
 					<Typography component="h2" variant="body1" className={classes.body}>
-						1. Isi data diri pada form disamping dengan benar, pastikan email dan no. Hp aktif, nomor
-						pendaftaran berisi nomor yang tertera pada surat penerimaan
+						1. Isi data diri pada form disamping dengan benar, pastikan email dan no. Hp aktif
 					</Typography>
 					<Typography component="h2" variant="body1" className={classes.body}>
 						2. Setelah memastikan data diisi dengan benar, klik "DAFTAR" untuk mengirim data
@@ -41,15 +40,10 @@ export default function Instruction() {
 						proses evaluasi maksimal 1 hari kerja
 					</Typography>
 					<Typography component="h2" variant="body1" className={classes.body}>
-						4. Apabila informasi yang dimasukkan sesuai, Anda akan dikirimi email yang berisi akun SSO
-						beserta password default
+						4. Apabila informasi yang dimasukkan sesuai, admin bagian IT akan mengaktifkan akun Anda
 					</Typography>
 					<Typography component="h2" variant="body1" className={classes.body}>
-						5. Setelah mendapat akun SSO, Anda dapat login melalui halaman utama
-					</Typography>
-					<Typography component="h2" variant="body1" className={classes.body}>
-						6. Apabila terdapat ketidaksesuaian informasi, Anda akan dihubungi oleh admin bagian IT melalui
-						email atau No.Hp
+						5. Setelah akun Anda berhasil diaktivasi, Anda dapat masuk ke Employee Self Service Zoonations
 					</Typography>
 				</Grid>
 			</Grid>

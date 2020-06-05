@@ -39,33 +39,42 @@ export default function TaskSummary(props) {
 		<Fragment>
 			<Paper elevation={5} className={classes.paperSummaryBase}>
 				<Grid item xs={12} className={classes.titleBase}>
-					<Typography className={classes.title}>Ringkasan Data Penugasan</Typography>
+					<Typography className={classes.title}>Ringkasan Data Penugasan dan Status Akun Karyawan</Typography>
 				</Grid>
 				<Grid container item xs={12} className={classes.taskSummaryBase}>
 					<Grid container item xs={7}>
 						<Grid container item xs={12} className={classes.taskContent}>
 							<Grid container item xs={6} direction="column" alignItems="center">
 								<Typography variant="h4">{props.done}</Typography>
-								<Typography>Selesai</Typography>
+								<Typography style={{ textAlign: 'center' }}>Tugas Selesai</Typography>
 							</Grid>
 							<Grid container item xs={6} direction="column" alignItems="center">
 								<Typography variant="h4">{props.onProgress}</Typography>
-								<Typography>Sedang Dikerjakan</Typography>
+								<Typography style={{ textAlign: 'center' }}>Tugas Sedang Dikerjakan</Typography>
 							</Grid>
 						</Grid>
 						<Grid container item xs={12} className={classes.taskContent}>
 							<Grid container item xs={6} direction="column" alignItems="center">
-								<Typography variant="h4">{props.reviewed}</Typography>
-								<Typography>Sedang Direview</Typography>
+								<Typography variant="h4">{props.pending}</Typography>
+								<Typography style={{ textAlign: 'center' }}>Tugas Belum Dikerjakan</Typography>
 							</Grid>
 							<Grid container item xs={6} direction="column" alignItems="center">
 								<Typography variant="h4">{props.revision}</Typography>
-								<Typography>Perlu Direvisi</Typography>
+								<Typography style={{ textAlign: 'center' }}>Tugas Perlu Direvisi</Typography>
 							</Grid>
 						</Grid>
 					</Grid>
 					<Divider orientation="vertical" flexItem />
-					<Grid container item xs={4} direction="column" alignItems="center" />
+					<Grid container item xs={4} direction="column" alignItems="center" justify="center">
+						<Grid container item className={classes.deadlineList} direction="column" alignItems="center">
+							<Typography variant="h4">{props.activeUser}</Typography>
+							<Typography style={{ textAlign: 'center' }}>Akun Karyawan Aktif</Typography>
+						</Grid>
+						<Grid container item className={classes.deadlineList} direction="column" alignItems="center">
+							<Typography variant="h4">{props.pendingUser}</Typography>
+							<Typography style={{ textAlign: 'center' }}>Akun Karyawan Pending</Typography>
+						</Grid>
+					</Grid>
 				</Grid>
 			</Paper>
 		</Fragment>
