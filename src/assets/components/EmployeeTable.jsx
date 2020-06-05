@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-//Styling - Material UI
+// Styling - Material UI
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -13,8 +13,12 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { Button } from '@material-ui/core';
 
-//Other Libraries
-import { useSelector } from 'react-redux';
+// Other Libraries
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
+// Redux Action
+import { changeUserStatus } from '../redux/action/usersAction';
 
 const useStyles = makeStyles((theme) => ({
 	table: {
@@ -29,9 +33,21 @@ const useStyles = makeStyles((theme) => ({
 export default function EmployeeTable() {
 	const classes = useStyles();
 	const employeeData = useSelector((state) => state.employeeData);
+	const dispatch = useDispatch();
+	const history = useHistory();
 
-	const changeStatus = (id) => {
-		console.log(id, 'test');
+	const changeStatus = (id, status) => {
+		const data = {
+			status
+		};
+
+		if (status === 'pending') {
+			data.status = 'active';
+		} else if (status === 'active') {
+			data.status = 'pending';
+		}
+		dispatch(changeUserStatus(id, data));
+		history.push('/manager-dashboard');
 	};
 
 	return (
@@ -65,7 +81,7 @@ export default function EmployeeTable() {
 								<TableCell align="right">{row.hp}</TableCell>
 								<TableCell align="right">{row.status}</TableCell>
 								<TableCell align="right">
-									<Button size="small" onClick={() => changeStatus(row._id)}>
+									<Button size="small" onClick={() => changeStatus(row._id, row.status)}>
 										Ubah Status
 									</Button>
 								</TableCell>

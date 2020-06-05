@@ -111,20 +111,11 @@ export const logout = (id) => {
 	};
 };
 
-// export const createStorage = (userId) => {
-// 	return () => {
-// 		return axios
-// 			.post(`${apiUrl}/foodStorage`, { userId: userId })
-// 			.then((response) => {
-// 				console.log(response);
-// 			})
-// 			.catch((error) => {});
-// 	};
-// };
-
-// export const addUserSuccess = (data) => {
-// 	return {
-// 		type: 'POST_USER',
-// 		payload: { data }
-// 	};
-// };
+export const changeUserStatus = (id, status) => {
+	return (dispatch) => {
+		return axios.put(`${apiUrl}/users/status/${id}`, status).then((response) => {}).catch((error) => {
+			console.log(error);
+			throw error;
+		});
+	};
+};
