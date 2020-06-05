@@ -15,11 +15,25 @@ export const createNewTask = (values) => {
 	};
 };
 
-// export const getDataSuccess = (data) => {
-// 	return {
-// 		type: 'GET_ALL_EMPLOYEE_DATA',
-// 		payload: {
-// 			data
-// 		}
-// 	};
-// };
+export const getAllTask = () => {
+	return (dispatch) => {
+		return axios
+			.get(`${apiUrl}/tasks`)
+			.then((response) => {
+				dispatch(getDataSuccess(response.data.data));
+				// console.log(response.data);
+			})
+			.catch((error) => {
+				throw error;
+			});
+	};
+};
+
+export const getDataSuccess = (data) => {
+	return {
+		type: 'GET_ALL_TASK_DATA',
+		payload: {
+			data
+		}
+	};
+};
