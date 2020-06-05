@@ -16,14 +16,9 @@ const useStyles = makeStyles((theme) => ({}));
 
 export default function EmployeeNumberSummary() {
 	const classes = useStyles();
-	const dispatch = useDispatch();
 	const employeeData = useSelector((state) => state.employeeData);
 	let activeEmployee = 0;
 	let pendingEmployee = 0;
-
-	useEffect(() => {
-		dispatch(getAllEmployeeData('employee'));
-	}, []);
 
 	if (employeeData.length !== 0) {
 		for (let i = 0; i < employeeData.length; i++) {

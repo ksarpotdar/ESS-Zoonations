@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // Redux Action
 import { logout } from '../redux/action/usersAction';
 import { getUserData } from '../redux/action/usersAction';
+import { getAllEmployeeData } from '../redux/action/employeeAction';
 
 const useStyles = makeStyles((theme) => ({
 	avatarHolder: {
@@ -53,6 +54,7 @@ export default function SideNav() {
 		if (token) {
 			dispatch(getUserData(token));
 		}
+		dispatch(getAllEmployeeData('employee'));
 	}, []);
 
 	return (
