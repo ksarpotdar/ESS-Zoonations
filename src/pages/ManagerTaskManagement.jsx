@@ -21,6 +21,7 @@ import TableRow from '@material-ui/core/TableRow';
 //Components
 import SidenavManager from '../assets/components/SidenavManager';
 import DashboardTitle from '../assets/components/DashboardTitle';
+import ManagerCreateTask from '../assets/components/ManagerCreateTask';
 
 //Other Libraries
 import Clock from 'react-live-clock';
@@ -62,6 +63,7 @@ export default function EmployeeTaskManagement() {
 	function createData(name, calories, fat, carbs, protein) {
 		return { name, calories, fat, carbs, protein };
 	}
+	const [ page, setPage ] = React.useState('1');
 
 	const rows = [
 		createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
@@ -70,6 +72,10 @@ export default function EmployeeTaskManagement() {
 		createData('Cupcake', 305, 3.7, 67, 4.3),
 		createData('Gingerbread', 356, 16.0, 49, 3.9)
 	];
+
+	const changePage = (page) => {
+		setPage(page);
+	};
 
 	return (
 		<Fragment>
@@ -88,40 +94,48 @@ export default function EmployeeTaskManagement() {
 									aria-label="contained primary button group"
 									fullWidth={true}
 								>
-									<Button>Ringkasan Tugas</Button>
-									<Button>Tugas yang Harus direview</Button>
-									<Button>Pemberian Tugas Untuk Karyawan</Button>
+									<Button onClick={() => changePage('1')}>Ringkasan Tugas</Button>
+									<Button onClick={() => changePage('2')}>Tugas yang Harus direview</Button>
+									<Button onClick={() => changePage('3')}>Pemberian Tugas Untuk Karyawan</Button>
 								</ButtonGroup>
 							</Grid>
 						</Grid>
 						<Grid container item>
 							<Grid container item xs={11} justify="flex-start" spacing={1}>
-								<TableContainer component={Paper}>
-									<Table className={classes.table} aria-label="simple table">
-										<TableHead>
-											<TableRow>
-												<TableCell>Dessert (100g serving)</TableCell>
-												<TableCell align="right">Calories</TableCell>
-												<TableCell align="right">Fat&nbsp;(g)</TableCell>
-												<TableCell align="right">Carbs&nbsp;(g)</TableCell>
-												<TableCell align="right">Protein&nbsp;(g)</TableCell>
-											</TableRow>
-										</TableHead>
-										<TableBody>
-											{rows.map((row) => (
-												<TableRow key={row.name}>
-													<TableCell component="th" scope="row">
-														{row.name}
-													</TableCell>
-													<TableCell align="right">{row.calories}</TableCell>
-													<TableCell align="right">{row.fat}</TableCell>
-													<TableCell align="right">{row.carbs}</TableCell>
-													<TableCell align="right">{row.protein}</TableCell>
+								{page === '1' ? (
+									<TableContainer component={Paper}>
+										<Table className={classes.table} aria-label="simple table">
+											<TableHead>
+												<TableRow>
+													<TableCell>Dessert (100g serving)</TableCell>
+													<TableCell align="right">Calories</TableCell>
+													<TableCell align="right">Fat&nbsp;(g)</TableCell>
+													<TableCell align="right">Carbs&nbsp;(g)</TableCell>
+													<TableCell align="right">Protein&nbsp;(g)</TableCell>
 												</TableRow>
-											))}
-										</TableBody>
-									</Table>
-								</TableContainer>
+											</TableHead>
+											<TableBody>
+												{rows.map((row) => (
+													<TableRow key={row.name}>
+														<TableCell component="th" scope="row">
+															{row.name}
+														</TableCell>
+														<TableCell align="right">{row.calories}</TableCell>
+														<TableCell align="right">{row.fat}</TableCell>
+														<TableCell align="right">{row.carbs}</TableCell>
+														<TableCell align="right">{row.protein}</TableCell>
+													</TableRow>
+												))}
+											</TableBody>
+										</Table>
+									</TableContainer>
+								) : page === '2' ? (
+									'page 2'
+								) : page === '3' ? (
+									<ManagerCreateTask />
+								) : (
+									''
+								)}
 							</Grid>
 
 							{/* <Grid container item xs={11} justify="flex-start" spacing={1}>
