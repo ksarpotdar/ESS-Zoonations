@@ -31,6 +31,7 @@ export const login = (values, history) => {
 			})
 			.catch((error) => {
 				alert(error.response.data);
+				console.log(error);
 				throw error;
 			});
 	};
