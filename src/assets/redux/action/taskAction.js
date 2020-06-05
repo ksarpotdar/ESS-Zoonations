@@ -4,14 +4,9 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 export const createNewTask = (values) => {
 	return (dispatch) => {
-		return axios
-			.post(`${apiUrl}/tasks`, values)
-			.then((response) => {
-				// console.log(response);
-			})
-			.catch((error) => {
-				throw error;
-			});
+		return axios.post(`${apiUrl}/tasks`, values).then((response) => {}).catch((error) => {
+			throw error;
+		});
 	};
 };
 
@@ -21,7 +16,21 @@ export const getAllTask = () => {
 			.get(`${apiUrl}/tasks`)
 			.then((response) => {
 				dispatch(getDataSuccess(response.data.data));
-				// console.log(response.data);
+			})
+			.catch((error) => {
+				throw error;
+			});
+	};
+};
+
+export const getTaskByUserId = (token) => {
+	return (dispatch) => {
+		return axios
+			.get(`${apiUrl}/tasks/id`, {
+				headers: { Authorization: `Bearer ${token}` }
+			})
+			.then((response) => {
+				dispatch(getDataSuccess(response.data.task));
 			})
 			.catch((error) => {
 				throw error;

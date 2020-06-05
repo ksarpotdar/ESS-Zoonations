@@ -15,9 +15,13 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 //Components
 import SidenavEmployee from '../assets/components/SidenavEmployee';
 import DashboardTitle from '../assets/components/DashboardTitle';
+import PendingTaskList from '../assets/components/PendingTaskList';
+import OnProgressTaskList from '../assets/components/OnProgressTaskList';
+import ReviewedTaskList from '../assets/components/ReviewedTask';
+import RevisionTaskList from '../assets/components/RevisionTaskList';
 
 //Other Libraries
-import Clock from 'react-live-clock';
+import { useDispatch, useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -53,6 +57,21 @@ const useStyles = makeStyles((theme) => ({
 
 export default function EmployeeTaskManagement() {
 	const classes = useStyles();
+	const allTask = useSelector((state) => state.taskData);
+	const pendingTask = [];
+	const [ page, setPage ] = React.useState('1');
+
+	const changePage = (page) => {
+		setPage(page);
+	};
+
+	if (allTask.length !== 0) {
+		for (let i = 0; i < allTask.length; i++) {
+			if (allTask[i].status === 'Belum Dikerjakan') {
+				pendingTask.push(allTask[i]);
+			}
+		}
+	}
 
 	return (
 		<Fragment>
@@ -71,32 +90,26 @@ export default function EmployeeTaskManagement() {
 									aria-label="contained primary button group"
 									fullWidth={true}
 								>
-									<Button>Tugas Baru</Button>
-									<Button>Sedang Dikerjakan</Button>
-									<Button>Sedang Direview</Button>
-									<Button>Butuh Direvisi</Button>
+									<Button onClick={() => changePage('1')}>Tugas Baru</Button>
+									<Button onClick={() => changePage('2')}>Sedang Dikerjakan</Button>
+									<Button onClick={() => changePage('3')}>Sedang Direview</Button>
+									<Button onClick={() => changePage('4')}>Butuh Direvisi</Button>
 								</ButtonGroup>
 							</Grid>
 						</Grid>
 						<Grid container item>
 							<Grid container item xs={11} justify="flex-start" spacing={1}>
-								<Grid item xs={4}>
-									<Card className={classes.root}>
-										<CardContent>
-											<Typography gutterBottom variant="h5" component="h2">
-												Nama Project
-											</Typography>
-											<Typography variant="body2" color="textSecondary" component="p">
-												Keterangan tugas yang akan dikerjakan
-											</Typography>
-										</CardContent>
-										<CardActions>
-											<Button size="small" color="primary">
-												Kerjakan sekarang
-											</Button>
-										</CardActions>
-									</Card>
-								</Grid>
+								{page === '1' ? (
+									<PendingTaskList />
+								) : page === '2' ? (
+									<OnProgressTaskList />
+								) : page === '3' ? (
+									<ReviewedTaskList />
+								) : page === '4' ? (
+									<RevisionTaskList />
+								) : (
+									''
+								)}
 							</Grid>
 						</Grid>
 					</Grid>

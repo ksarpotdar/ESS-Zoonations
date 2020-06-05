@@ -62,7 +62,7 @@ export default function ManagerCreateNewTask() {
 			deadline: data.deadline
 		};
 
-		// dispatch(createNewTask(newTask));
+		dispatch(createNewTask(newTask));
 		alert('Tugas berhasil diberikan');
 		history.push('/manager-dashboard');
 	};
