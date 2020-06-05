@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-//Styling - Material UI
+// Styling - Material UI
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -12,8 +12,12 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardActionArea from '@material-ui/core/CardActionArea';
 
-//Other Libraries
+// Other Libraries
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
+// Redux Action
+import { updateTaskStatus } from '../redux/action/taskAction';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -51,6 +55,8 @@ export default function PendingTaskList() {
 	const classes = useStyles();
 	const allTask = useSelector((state) => state.taskData);
 	const pendingTask = [];
+	const dispatch = useDispatch();
+	const history = useHistory();
 
 	if (allTask.length !== 0) {
 		for (let i = 0; i < allTask.length; i++) {
@@ -59,6 +65,14 @@ export default function PendingTaskList() {
 			}
 		}
 	}
+
+	const changeStatus = (id) => {
+		const data = {
+			status: 'Sedang Dikerjakan'
+		};
+		dispatch(updateTaskStatus(id, data));
+		history.push('/employee-dashboard');
+	};
 
 	return (
 		<Fragment>
@@ -83,7 +97,7 @@ export default function PendingTaskList() {
 								</Typography>
 							</CardContent>
 							<CardActions>
-								<Button size="small" color="primary">
+								<Button onClick={() => changeStatus(task._id)} size="small" color="primary">
 									Kerjakan sekarang
 								</Button>
 							</CardActions>

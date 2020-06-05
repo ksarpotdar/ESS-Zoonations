@@ -46,3 +46,18 @@ export const getDataSuccess = (data) => {
 		}
 	};
 };
+
+export const updateTaskStatus = (id, status) => {
+	return (dispatch) => {
+		return axios
+			.put(`${apiUrl}/tasks/${id}`, status)
+			.then((response) => {
+				console.log(response);
+			})
+			.catch((error) => {
+				console.log(error);
+
+				throw error;
+			});
+	};
+};

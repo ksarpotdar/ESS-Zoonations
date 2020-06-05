@@ -14,6 +14,10 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 
 //Other Libraries
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
+// Redux Action
+import { updateTaskStatus } from '../redux/action/taskAction';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -51,6 +55,8 @@ export default function OnProgressTaskList() {
 	const classes = useStyles();
 	const allTask = useSelector((state) => state.taskData);
 	const onProgressTask = [];
+	const dispatch = useDispatch();
+	const history = useHistory();
 
 	if (allTask.length !== 0) {
 		for (let i = 0; i < allTask.length; i++) {
@@ -59,6 +65,14 @@ export default function OnProgressTaskList() {
 			}
 		}
 	}
+
+	const changeStatus = (id) => {
+		const data = {
+			status: 'Sedang Direview'
+		};
+		dispatch(updateTaskStatus(id, data));
+		history.push('/employee-dashboard');
+	};
 
 	return (
 		<Fragment>
@@ -83,7 +97,7 @@ export default function OnProgressTaskList() {
 								</Typography>
 							</CardContent>
 							<CardActions>
-								<Button size="small" color="primary">
+								<Button onClick={() => changeStatus(task._id)} size="small" color="primary">
 									Siap Direview
 								</Button>
 							</CardActions>
